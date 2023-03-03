@@ -575,8 +575,7 @@ function watchVisibility() {
   });
 }
 
-// TODO: test what happens if we sign out in another tab and come back here?
-// wait for the form to arrive
+// Disabling this for 0.0.2; seeing a front-end crash after sending a DM
 function hashtagReminder() {
   const hashTagObserver = new MutationObserver(function () {
     // look for the form
@@ -679,7 +678,8 @@ function build() {
           // send instance and token to background
           updateCredentials(local.instance, local.token);
           // start watching for the Publish form
-          hashtagReminder();
+          // disabled for 0.0.2
+          // hashtagReminder();
         } else {
           // we're on a foreign instance
           debug(`Foreign instance: ${json.meta.domain}`);

@@ -578,94 +578,6 @@
     });
   }
 
-  // TODO: test what happens if we sign out in another tab and come back here?
-  // wait for the form to arrive
-  function hashtagReminder() {
-    const hashTagObserver = new MutationObserver(function () {
-      // look for the form
-      const f = document.getElementsByClassName("compose-form");
-      if (f[0]) {
-        if (f[0].dataset.hashtagHelper) {
-          return;
-        } else {
-          let form = f[0],
-            input,
-            submit;
-          // find the input box
-          const t = form.getElementsByTagName("TEXTAREA");
-          // assume it's the first textarea in the form
-          if (t.length) {
-            input = t[0];
-          } else {
-            // did not find it
-            return;
-          }
-          // find the submit button
-          const b = form.getElementsByTagName("BUTTON");
-          for (var i = 0; i < b.length; i = i + 1) {
-            if (b[i].type === "submit") {
-              submit = b[i];
-              break;
-            }
-          }
-          // did not find it
-          if (!submit) {
-            return;
-          }
-          // tell our observer we found the form we want
-          form.dataset.hashTagHelper = true;
-          // start listening
-          let lastValue = "";
-          // SpiffY!Search listener
-          function checkMe() {
-            // split current button text by spaces;
-            // if the reminder is there, it will be in space 0
-            let z = submit.innerText.split(" ");
-            // do we have a value?
-            if (input.value) {
-              // has it changed?
-              if (input.value !== lastValue) {
-                // check for at least one hashtag
-                // TODO: this does not catch one-character hashtags
-                if (input.value.match(/\B\#\w\w+\b/g)) {
-                  // do we need to remove the reminder?
-                  if (z[0] === "#?") {
-                    // remove #? from array
-                    z.shift();
-                    // join the rest back up again
-                    submit.innerText = z.join(" ");
-                  }
-                  submit.classList.remove("button--destructive");
-                } else {
-                  // do we need to show the reminder?
-                  if (z[0] !== "#?") {
-                    z.unshift("#?");
-                    submit.innerText = z.join(" ");
-                    submit.classList.add("button--destructive");
-                  }
-                }
-                // remember value for next time
-                lastValue = input.value;
-              }
-            } else {
-              // entry is blank. If the reminder is up, remove it
-              if (z[0] === "#?") {
-                z.shift();
-                submit.innerText = z.join(" ");
-              }
-            }
-            // check again in a tenth of a second
-            window.setTimeout(checkMe, 100);
-          }
-          // start checking
-          checkMe();
-        }
-      }
-    });
-    // start waiting for a Publish form to appear
-    hashTagObserver.observe(document.body, { attributes: true });
-  }
-
   // decide what to do and do it
   function build() {
     let initState = document.querySelector("#initial-state");
@@ -681,7 +593,8 @@
             // send instance and token to background
             updateCredentials(local.instance, local.token);
             // start watching for the Publish form
-            hashtagReminder();
+            // disabled for 0.0.2
+            // hashtagReminder();
           } else {
             // we're on a foreign instance
             debug(`Foreign instance: ${json.meta.domain}`);
