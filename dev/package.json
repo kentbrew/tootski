@@ -1,0 +1,27 @@
+{
+  "name": "Tootski",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Boost, follow, and favorite from outside your home Mastodon instance.",
+  "scripts": {
+    "dev": "rollup -c --watch --output.generatedCode.constBindings --bundleConfigAsCjs"
+  },
+  "dependencies": {
+    "rollup": "^3.6.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.20.5",
+    "@babel/preset-env": "^7.20.2",
+    "@rollup/plugin-alias": "^4.0.2",
+    "@rollup/plugin-babel": "^6.0.3",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-env": "^1.7.0",
+    "prettier": "^2.8.0",
+    "rollup-plugin-copy": "^3.4.0",
+    "rollup-plugin-prettier": "^3.0.0",
+    "rollup-plugin-watch-globs": "^2.0.1"
+  },
+  "author": "Kent Brewster",
+  "license": "ISC"
+}
