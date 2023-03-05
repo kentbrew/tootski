@@ -1,3 +1,5 @@
 .DS_Store
 node_modules/
-
+dev/dist/
+dev/out/
+dev/node_modules/

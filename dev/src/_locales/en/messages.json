@@ -4,7 +4,7 @@
     "description": "The extension's title, seen in gallery and extensions page"
   },
   "extDescription": {
-    "message": "Boost, follow, and favorite from outside your home Mastodon instance.",
+    "message": "Boost, follow, favorite, and share from outside your home Mastodon instance.",
     "description": "The extension's description, seen in gallery and extensions page"
   }
 }
