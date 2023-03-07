@@ -47,7 +47,3 @@ Tootski's flow breaks down when replying. If there was some way to open your hom
 - Parameters that populate the textarea and move the cursor to the end include `url` and `text`.
 
 I've tried a bunch of things, like loading the home instance page, finding the box, and filling it with content; on first interaction with the page, everything in the box goes away. Help figuring this out would be really great!
-
-## What Would Really, Really Help
-
-If the developers of Mastodon embraced browser extensions as a way to connect different instances, and left a few hooks for extensions to grab onto.
