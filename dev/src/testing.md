@@ -1,6 +1,6 @@
 # Testing
 
-- Tootski is currently testable in Chrome, Firefox, and Microsoft Edge; Safari will have to wait until we are out and stable.
+- Tootski is currently testable in Chrome and Firefox; while it is not yet on the Microsoft Edge or Opera web stores, the Chrome version should side-load and work. Safari will have to wait until we are out and stable.
 - While Tootski may potentially work on mobile devices, we're concentrating on desktop only for now.
 
 ## Setup
@@ -10,21 +10,14 @@ If you're bravely testing this in developer mode (by which I mean not acquiring 
 1. Open a new window
 1. Open `about:debugging#/runtime/this-firefox` or `chrome://extensions`
 1. Remove if installed
-1. Click Load Temporary Add-On (Firefox) and then `manifest.json` in `dist/ff` or Drag in `dist/cr` (Chrome, Microsoft Edge)
+1. Click Load Temporary Add-On (Firefox) and then `manifest.json` in `dist/ff` or drag in `dist/cr` (Chrome, Microsoft Edge)
 
-Otherwise, install Tootski from the app store. URLs will appear here when we have them:
+Otherwise, install Tootski from the app store:
 
-- Chrome: not available yet
-- Firefox: not available yet
-- Microsoft Edge: not available yet
+- Chrome: https://chrome.google.com/webstore/detail/tootski/moincmahmgemjnmpeohdfpicgdkgfbcd
+- Firefox: https://addons.mozilla.org/en-US/firefox/addon/tootski/
 
 _Super important: please check that you don't have any other tabs open in this window. If you do, tests listed below are guaranteed to act weird._
-
-## Hashtag Reminder
-
-As you're composing a toot or reply, note that the Publish! will show the warning color--typically red--on hover, and have `#?` prepended to the label until you have at least one hashtag in your entry. This is to help you remember to hashtag your posts for better searchability.
-
-Hashtag reminder is advisory only and does not block functionality; you can always post without hashtags.
 
 ## Browser Button
 
@@ -67,9 +60,11 @@ Be sure you're signed in before trying this. If the browser button is gray, visi
 1. Note that when you hover over the button it turns to the warning color, typically red. Click the button again to undo whatever action you took.
 1. Go back to your home instance and reload the page. The action you took above should no longer be there. _If it persists, you may need to hard-reload the page. \_If trouble persists, please copy and report the URL from the On A Different Server box in the Dreaded Modal Dialogue._
 
-## Multiple Accounts (optional!)
+## Multiple Accounts
 
 If you've moved servers you may still have an active login on the original. While testing please be careful about posting to your old server, which may not be where you want things to go.
+
+Tootski is meant to work with more than one account. Whichever logged-in account you viewed most recently should be the one that shows on the button.
 
 1. In two different tabs, sign in to two different Mastodon servers.
 1. In a third tab, open a Mastodon server that isn't one of your home servers.
