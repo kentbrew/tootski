@@ -18,7 +18,7 @@
 
 // change debug level to 0 before shipping!
 const config = {
-  debug: 0,
+  debug: 3,
   shareTextLimit: 200,
 };
 
@@ -82,15 +82,17 @@ const action = {
       alterStructure(me);
     },
   },
-  /*
   // TODO: open our home instance with this status set up for reply
-  "fa-reply": 
+  "fa-reply": {
     modify: (me) => {
+      me.data = {
+        action: "reply",
+        url: getCopyPasteURL(),
+      };
       alterStructure(me);
       debug("Reply dialog detected!");
     },
   },
-  */
 };
 
 /*
@@ -667,6 +669,7 @@ function hashtagReminder() {
 function build() {
   let initState = document.querySelector("#initial-state");
   if (initState) {
+    console.log(initState);
     try {
       let json = JSON.parse(initState.textContent);
       if (json.meta && json.meta.domain && "limited_federation_mode" in json.meta) {
@@ -680,6 +683,27 @@ function build() {
           // start watching for the Publish form
           // disabled for 0.0.2
           // hashtagReminder();
+          // look for our reply feature
+          if (window.location.hash.match(/^#tootskiReply/)) {
+            history.pushState("", document.title, window.location.pathname + window.location.search);
+            let replyId = window.location.pathname;
+            let sel = `[ href="${replyId}"]`;
+            function seekButton() {
+              let t = document.querySelector(sel);
+              if (t) {
+                let reply = document.querySelector(".fa-reply");
+                let replyAll = document.querySelector(".fa-reply-all");
+                if (replyAll) {
+                  replyAll.click();
+                } else {
+                  reply.click();
+                }
+              } else {
+                window.setTimeout(seekButton, 100);
+              }
+            }
+            seekButton();
+          }
         } else {
           // we're on a foreign instance
           debug(`Foreign instance: ${json.meta.domain}`);

@@ -9,7 +9,7 @@
 
 // change debug level to 0 before shipping!
 const config = {
-  debug: 0,
+  debug: 3,
   helpUrl: "https://tootski.dev",
 };
 
@@ -264,6 +264,33 @@ browser.runtime.onMessage.addListener((request) => {
         global.token = null;
         browser.storage.local.clear();
         changeBrowserAction("off");
+      }
+    }
+    // search for a toot, then open it in a new tab for reply
+    if (request.action === "reply" && request.url) {
+      let t = request.url.split("/");
+      if (t.length > 3) {
+        return new Promise(function (resolve) {
+          // TODO: encode the URL?
+          fetch(`https://${global.instance}/api/v2/search?resolve=true&limit=1&type=statuses&q=${request.url}`, {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${global.token}`,
+            },
+          })
+            .then((searchResponse) => searchResponse.json())
+            .then((searchResult) => {
+              debug(searchResult);
+              if (searchResult.statuses && searchResult.statuses[0] && searchResult.statuses[0].id) {
+                browser.tabs.create({
+                  url: `https://${global.instance}/${t[3]}@${t[2]}/${searchResult.statuses[0].id}#tootskiReply`,
+                });
+              } else {
+                debug("Search did not find the toot.");
+                resolve(null);
+              }
+            });
+        });
       }
     }
     // open an URL in a new tab (for sharing)
