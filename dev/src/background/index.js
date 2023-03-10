@@ -281,9 +281,15 @@ browser.runtime.onMessage.addListener((request) => {
             .then((searchResponse) => searchResponse.json())
             .then((searchResult) => {
               debug(searchResult);
-              if (searchResult.statuses && searchResult.statuses[0] && searchResult.statuses[0].id) {
+              if (searchResult.statuses[0]?.id) {
+                let hash = "#tootskiReply";
+                if (searchResult.statuses[0].in_reply_to_id) {
+                  hash = hash + "All";
+                }
+                // tell the content window to close the overlay
+                sendToContent({ success: "reply" });
                 browser.tabs.create({
-                  url: `https://${global.instance}/${t[3]}@${t[2]}/${searchResult.statuses[0].id}#tootskiReply`,
+                  url: `https://${global.instance}/${t[3]}@${t[2]}/${searchResult.statuses[0].id}${hash}`,
                 });
               } else {
                 debug("Search did not find the toot.");

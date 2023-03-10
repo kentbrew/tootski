@@ -82,7 +82,6 @@ const action = {
       alterStructure(me);
     },
   },
-  // TODO: open our home instance with this status set up for reply
   "fa-reply": {
     modify: (me) => {
       me.data = {
@@ -152,6 +151,10 @@ function success(me) {
     // cancel and remove animation
     global.amSpinning.cancel();
     switch (me.success) {
+      case "reply":
+        // dismiss the overlay
+        document.querySelector(".modal-root__overlay").click();
+        break;
       case "boost":
         debug("boost success");
         structure.myMask.dataset.action = "unboost";
@@ -685,18 +688,21 @@ function build() {
           // hashtagReminder();
           // look for our reply feature
           if (window.location.hash.match(/^#tootskiReply/)) {
+            let hash = window.location.hash;
             history.pushState("", document.title, window.location.pathname + window.location.search);
             let replyId = window.location.pathname;
             let sel = `[ href="${replyId}"]`;
+            // TODO: should this be a mutation observer?
             function seekButton() {
               let t = document.querySelector(sel);
               if (t) {
-                let reply = document.querySelector(".fa-reply");
-                let replyAll = document.querySelector(".fa-reply-all");
-                if (replyAll) {
-                  replyAll.click();
+                if (hash === "#tootskiReply") {
+                  // we are replying to a toot
+                  document.querySelector(".fa-reply").click();
                 } else {
-                  reply.click();
+                  // we are replying to a reply
+                  // TODO: see if there ever be more than one fa-reply-all?
+                  document.querySelector(".fa-reply-all").click();
                 }
               } else {
                 window.setTimeout(seekButton, 100);
