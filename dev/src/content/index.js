@@ -18,7 +18,7 @@
 
 // change debug level to 0 before shipping!
 const config = {
-  debug: 3,
+  debug: 0,
   shareTextLimit: 200,
 };
 
@@ -84,6 +84,7 @@ const action = {
   },
   "fa-reply": {
     modify: (me) => {
+      debug("Reply dialog detected!");
       me.data = {
         action: "reply",
         url: getCopyPasteURL(),

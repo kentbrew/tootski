@@ -9,7 +9,7 @@
 
 // change debug level to 0 before shipping!
 const config = {
-  debug: 3,
+  debug: 0,
   helpUrl: "https://tootski.dev",
 };
 
