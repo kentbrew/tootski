@@ -152,7 +152,7 @@ function success(me) {
     global.amSpinning.cancel();
     switch (me.success) {
       case "reply":
-        // dismiss the overlay
+        // dismiss the overlay; everything else is happening in a new tab
         document.querySelector(".modal-root__overlay").click();
         break;
       case "boost":
@@ -672,7 +672,6 @@ function hashtagReminder() {
 function build() {
   let initState = document.querySelector("#initial-state");
   if (initState) {
-    console.log(initState);
     try {
       let json = JSON.parse(initState.textContent);
       if (json.meta && json.meta.domain && "limited_federation_mode" in json.meta) {
